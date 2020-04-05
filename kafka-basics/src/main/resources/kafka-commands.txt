@@ -1,0 +1,33 @@
+./kafka-topics.sh --bootstrap-server localhost:9092 --topic first-topic --create --partitions 3 --replication-factor 1
+
+# replication factor can'e be updated as below
+./kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic first-topic --partitions 3 --replication-factor 3
+
+# correct way is as below :
+Step 1. Create a JSON (update-topic-partition.json), as :
+{"version":1,
+  "partitions":[
+     {"topic":"first-topic","partition":0,"replicas":[1,2,3]},
+     {"topic":"first-topic","partition":1,"replicas":[1,2,3]},
+     {"topic":"first-topic","partition":2,"replicas":[1,2,3]}
+]}
+Step 2. Run below command:
+./kafka-reassign-partitions.sh  --zookeeper localhost:2181  --bootstrap-server localhost:9092,localhost:9091,localhost:9093 --reassignment-json-file ../config/update-topic-partition.json --execute
+./kafka-reassign-partitions.sh  --zookeeper localhost:2181  --broker-list "1,2,3" --reassignment-json-file ../config/update-topic-partition.json --generate > ../config/generated-config.json
+./kafka-reassign-partitions.sh  --zookeeper localhost:2181  --reassignment-json-file ../config/update-topic-partition.json --verify
+# Unfortunately above commands don not work. I gave up working on it.
+
+# trying below
+./kafka-reassign-partitions.sh --zookeeper localhost:2181 --topics-to-move-json-file ../config/topics.json --broker-list "1,2,3" --generate
+
+./kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+./kafka-topics.sh --bootstrap-server localhost:9092 --topic first-topic --describe
+
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic --from-beginning
+
+./kafka-consumer-groups.sh  --list --bootstrap-server localhost:9092
+
+./kafka-topics.sh --bootstrap-server localhost:9092 --topic twitter-tweets --create --partitions 3 --replication-factor 1
+./kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic twitter-tweets --partitions 6
+./kafka-console-consumer.sh --bootstrap-server localhost:9091 --topic twitter-tweets --from-beginning

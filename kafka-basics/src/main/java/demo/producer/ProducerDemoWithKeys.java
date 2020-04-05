@@ -1,4 +1,4 @@
-package com.gshar.kafka.learning;
+package demo.producer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

@@ -1,4 +1,4 @@
-package com.gshar.kafka.learning;
+package demo.producer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -7,7 +7,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class ProducerDemoWithCallback {
+public class ProducerDemo {
     public static void main(String[] args) {
         // create properties
         Properties properties  = new Properties();
@@ -20,22 +20,13 @@ public class ProducerDemoWithCallback {
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
         // create producer record
-        ProducerRecord<String, String> record = new ProducerRecord<>("first-topic","v3");
+        ProducerRecord<String, String> record = new ProducerRecord<>("first-topic","more message");
 
         // send record
-        producer.send(record, (metadata,exception)-> {
-            if(exception==null) {
-                System.out.println("Topic :\t" + metadata.topic());
-                System.out.println("Partition :\t" + metadata.partition());
-                System.out.println("Offset :\t" + metadata.offset());
-                System.out.println("Timestamp :\t" + metadata.timestamp());
-            }
-            else{
-                System.out.printf("The exception : %s has occurred.%n",exception.toString());
-            }
-        });
+        producer.send(record);
 
         // flush and close
+        // this is commented to learn how it works
         producer.close();
 
     }

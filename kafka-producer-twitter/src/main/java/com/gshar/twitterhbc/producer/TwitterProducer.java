@@ -1,8 +1,8 @@
-package twitterhbc.producer;
+package com.gshar.twitterhbc.producer;
 
 import com.google.common.collect.Lists;
 
-import twitterhbc.constants.AuthConstants;
+import com.gshar.twitterhbc.constants.AuthConstants;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Client;
 import com.twitter.hbc.core.Constants;

@@ -1,4 +1,4 @@
-package demo.consumer;
+package com.gshar.demo.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

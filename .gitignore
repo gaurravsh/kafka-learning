@@ -1,0 +1,5 @@
+.DS_Store
+.gradle/
+.idea/
+build/
+kafka-producer-twitter/src/main/java/com/gshar/twitterhbc/constants/
